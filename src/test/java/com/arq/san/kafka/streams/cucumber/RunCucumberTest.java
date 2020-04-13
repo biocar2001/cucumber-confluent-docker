@@ -28,13 +28,13 @@ public class RunCucumberTest {
             System.out.println(output.toString());
             int exitVal = process.waitFor();
             if (exitVal == 0) {
-                System.out.println(operacion + " Exito Success !!!!");
+                System.out.println(operacion + " Executing wait please !!!!");
                 System.out.println(output);
                 if(exit) {
                     System.exit(0);
                 }
             } else {
-                System.out.println(operacion + " ERROR EN SCRIPT !!!!");
+                System.out.println(operacion + "Error en script!!!!");
                 System.out.println(output);
                 System.exit(0);
             }

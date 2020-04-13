@@ -10,3 +10,6 @@ Package en Dockerfile:
 ----------------------
 docker build .
 
+./kafka-console-producer \
+    --broker-list localhost:9092 \
+    --topic word-count-input

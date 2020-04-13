@@ -1,5 +1,6 @@
 package com.arq.san.kafka.streams;
 
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Arrays;
 
@@ -13,7 +14,7 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
-
+import utils.UtilsKafka;
 
 
 /**
@@ -54,10 +55,10 @@ public class WordCountApp {
      * Description: Word Count Kstreams app
      * @param args String[] args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         final Properties result = UtilsKafka.getConfigProperties();
         result.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-application");
-        //config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "broker:29092");
+        result.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "broker:29092");
         result.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         result.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         result.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());

@@ -2,8 +2,9 @@ package kafka;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import com.arq.san.kafka.streams.UtilsKafka;
+import utils.UtilsKafka;
 
+import java.io.IOException;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -11,12 +12,10 @@ public class Producer
 {
     private final Properties properties = getProperties();
 
-    public Producer()
-    {
+    public Producer() throws IOException {
     }
 
-    private Properties getProperties()
-    {
+    private Properties getProperties() throws IOException {
         Properties properties = UtilsKafka.getConfigProperties();
 
         properties.put("acks", "all");

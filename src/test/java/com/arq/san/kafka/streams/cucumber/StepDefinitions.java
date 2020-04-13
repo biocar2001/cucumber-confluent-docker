@@ -7,6 +7,7 @@ import kafka.Consumer;
 import kafka.Producer;
 import org.junit.Assert;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,10 @@ public class StepDefinitions {
     private final Consumer consumer = new Consumer(TOPIC_CONSUMER);
 
     private Map<String, Integer> snapshot = new HashMap<>();
+
+    public StepDefinitions() throws IOException {
+    }
+
     @Given("^that we know a number of words processed previously$")
     public void getSnapshotForCounts()
     {

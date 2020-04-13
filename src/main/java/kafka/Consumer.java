@@ -3,12 +3,15 @@ package kafka;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import com.arq.san.kafka.streams.UtilsKafka;
+import utils.UtilsKafka;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import static utils.UtilsKafka.*;
 
 public class Consumer
 {
@@ -18,8 +21,7 @@ public class Consumer
 
     private final String topic;
 
-    public Consumer( String topic )
-    {
+    public Consumer( String topic ) throws IOException {
         this.topic = topic;
     }
 
@@ -35,8 +37,7 @@ public class Consumer
             while ( System.currentTimeMillis() < endPollingTimestamp ) {
                 ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(100);
                 for ( ConsumerRecord<String, String> next : consumerRecords ) {
-                    String[] splitted = next.value().split(":");
-                    records.put(splitted[0], Integer.valueOf(splitted[1]));
+                    records.put(next.value(), 1);
                 }
             }
 
@@ -45,10 +46,8 @@ public class Consumer
         return records;
     }
 
-    private Properties getProperties()
-    {
+    private Properties getProperties() throws IOException {
         Properties result = UtilsKafka.getConfigProperties();
-
         // add consumer specific result
         result.setProperty("enable.auto.commit", "true");
         result.setProperty("auto.commit.interval.ms", "1000");
